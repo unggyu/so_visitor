@@ -26,7 +26,7 @@ jobs:
           node-version: '16'
           cache: 'yarn'
       - run: yarn install
-      - run: yarn visit
+      - run: yarn start
         env:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}

@@ -4,8 +4,8 @@ const Mailgun = require('mailgun-js');
 require('dotenv').config();
 
 let mailgun;
-const hasApiKey = process.env.MAILGUN_API_KEY !== undefined;
-const hasDomain = process.env.MAILGUN_DOMAIN !== undefined;
+const hasApiKey = !isEmpty(process.env.MAILGUN_API_KEY);
+const hasDomain = !isEmpty(process.env.MAILGUN_DOMAIN);
 console.log(`Has mailgun api key? ${hasApiKey}`);
 console.log(`Has mailgun domain? ${hasDomain}`)
 
@@ -14,6 +14,15 @@ if (hasApiKey && hasDomain) {
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN
   });
+}
+
+function isEmpty(value) {
+  return value == '' ||
+    value == null ||
+    value == undefined ||
+    (value != null &&
+      typeof value == "object" &&
+      !Object.keys(value).length);
 }
 
 function processResult(text) {
