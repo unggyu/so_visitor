@@ -5,6 +5,7 @@
   "author": "Deliaz",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "mailgun-js": "^0.10.1",
     "nightmare": "^2.10.0"
   }
