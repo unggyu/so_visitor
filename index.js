@@ -68,8 +68,8 @@ const LOGIN_PAGE = 'https://stackoverflow.com/users/login';
 nightmare
   .goto(LOGIN_PAGE)
   .wait('#login-form')
-  .type('#email', process.env.EMAIL)
-  .type('#password', process.env.PASSWORD)
+  .type('#email', process.env.SO_EMAIL)
+  .type('#password', process.env.SO_PASSWORD)
   .click('#submit-button')
   .wait('a.my-profile')
   .click('a.my-profile')
