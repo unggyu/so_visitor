@@ -1,20 +1,22 @@
-const Nightmare = require('nightmare');
+const nightmare = require('nightmare');
 const Mailgun = require('mailgun-js');
 require('dotenv').config();
 
-const nightmare = Nightmare({ show: false });
+let mailgun;
+const hasApiKey = process.env.MAILGUN_API_KEY !== undefined;
+const hasDomain = process.env.MAILGUN_DOMAIN !== undefined;
+console.log(`Has mailgun api key? ${hasApiKey}`);
+console.log(`Has mailgun domain? ${hasDomain}`)
 
-let mailgun = null;
-if (process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN) {
-  mailgun = Mailgun({
+if (hasApiKey && hasDomain) {
+  mailgun = new Mailgun({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN
   });
 }
 
-const LOGIN_PAGE = 'https://stackoverflow.com/users/login';
-
 function processResult(text) {
+  console.log(`Visit success. (${text})`);
   if (mailgun) {
     mailgun
       .messages()
@@ -28,10 +30,12 @@ function processResult(text) {
           throw error;
         }
     });
+    console.log('Mail has been sent.')
   }
 }
 
 function processError(errText) {
+  console.log(`Visit failure. error: ${errText}`);
   if (mailgun) {
     mailgun
       .messages()
@@ -45,10 +49,13 @@ function processError(errText) {
           throw error;
         }
     });
+    console.log('Mail has been sent.');
   }
 }
 
-nightmare
+const LOGIN_PAGE = 'https://stackoverflow.com/users/login';
+
+nightmare({ show: false })
   .goto(LOGIN_PAGE)
   .wait('#login-form')
   .type('#email', process.env.EMAIL)
