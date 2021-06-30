@@ -28,7 +28,7 @@ jobs:
       - run: yarn install
       - run: yarn start
         env:
-          EMAIL: ${{ secrets.SO_EMAIL }}
-          PASSWORD: ${{ secrets.SO_PASSWORD }}
+          SO_EMAIL: ${{ secrets.SO_EMAIL }}
+          SO_PASSWORD: ${{ secrets.SO_PASSWORD }}
           MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
           MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
