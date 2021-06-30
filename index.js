@@ -1,4 +1,5 @@
-const nightmare = require('nightmare');
+const Nightmare = require('nightmare');
+const nightmare = Nightmare({ show: false });
 const Mailgun = require('mailgun-js');
 require('dotenv').config();
 
@@ -55,7 +56,7 @@ function processError(errText) {
 
 const LOGIN_PAGE = 'https://stackoverflow.com/users/login';
 
-nightmare({ show: false })
+nightmare
   .goto(LOGIN_PAGE)
   .wait('#login-form')
   .type('#email', process.env.EMAIL)
@@ -69,9 +70,5 @@ nightmare({ show: false })
     return el ? el.innerText : 'null';
   })
   .end()
-  .then(progressText => {
-    processResult(progressText);
-  })
-  .catch(function (error) {
-    processError(error);
-  });
+  .then(processResult)
+  .catch(processError);
