@@ -1,5 +1,8 @@
 const Nightmare = require('nightmare');
-const nightmare = Nightmare({ show: false });
+const nightmare = Nightmare({
+  show: false, // trun off the electron window
+  waitTimeout: 60000 // 1m
+});
 const Mailgun = require('mailgun-js');
 require('dotenv').config();
 
@@ -8,7 +11,7 @@ const LOGIN_PAGE = 'https://stackoverflow.com/users/login';
 const hasApiKey = !isEmpty(process.env.MAILGUN_API_KEY);
 const hasDomain = !isEmpty(process.env.MAILGUN_DOMAIN);
 console.log(`Has mailgun api key? ${hasApiKey}`);
-console.log(`Has mailgun domain? ${hasDomain}`)
+console.log(`Has mailgun domain? ${hasDomain}`);
 
 if (hasApiKey && hasDomain) {
   mailgun = new Mailgun({
@@ -39,7 +42,7 @@ function isEmpty(value) {
     value == null ||
     value == undefined ||
     (value != null &&
-      typeof value == "object" &&
+      typeof value == 'object' &&
       !Object.keys(value).length);
 }
 
@@ -55,7 +58,7 @@ function processResult(text) {
         text: `Hi man. Thats your stat for now: ${text}`
       }, (error, body) => {
         if (error) {
-          console.log(`An error occurred while sending mail. error: ${error}`);
+          console.error(`An error occurred while sending mail. ${error}`);
           throw error;
         } else {
           console.log('Mail has been sent.');
@@ -65,7 +68,7 @@ function processResult(text) {
 }
 
 function processError(errText) {
-  console.log(`Visit failure. error: ${errText}`);
+  console.error(`Visit failure. error: ${errText}`);
   if (mailgun) {
     mailgun
       .messages()
@@ -76,12 +79,11 @@ function processError(errText) {
         text: `Something went wrong: ${errText}`
       }, (error, body) => {
         if (error) {
-          console.log(`An error occurred while sending mail. error: ${error}`);
+          console.error(`An error occurred while sending mail. ${error}`);
           throw error;
         } else {
           console.log('Mail has been sent.');
         }
     });
-    console.log('Mail has been sent.');
   }
 }
