@@ -4,6 +4,10 @@ name: execute at scheduled time
 
 # Controls when the workflow will run
 on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
   # Triggers the workflow on push or pull request events but only for the master branch
   schedule:
     - cron: '0 0 * * *'
@@ -15,20 +19,26 @@ on:
 jobs:
   visit:
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
           cache: 'yarn'
-      - run: yarn install
-      - run: yarn start
-        env:
-          SO_EMAIL: ${{ secrets.SO_EMAIL }}
-          SO_PASSWORD: ${{ secrets.SO_PASSWORD }}
-          MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
-          MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
+      - name: Install packages
+        run: yarn install
+      - name: Visit Stack Overflow with headless mode
+        uses: actions/xvfb-action
+        with:
+          run: yarn start
+          env:
+            SO_EMAIL: ${{ secrets.SO_EMAIL }}
+            SO_PASSWORD: ${{ secrets.SO_PASSWORD }}
+            MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
+            MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
