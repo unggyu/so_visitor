@@ -10,14 +10,21 @@ let mailgun
 const LOGIN_PAGE = 'https://stackoverflow.com/users/login'
 const hasApiKey = !isEmpty(process.env.MAILGUN_API_KEY)
 const hasDomain = !isEmpty(process.env.MAILGUN_DOMAIN)
+const hasEmail = !isEmpty(process.env.SO_EMAIL)
+const hasPassword = !isEmpty(process.env.SO_PASSWORD)
 console.log(`Has mailgun api key? ${hasApiKey}`)
 console.log(`Has mailgun domain? ${hasDomain}`)
+console.log(`Has StackOverflow emai? ${hasEmail}`)
+console.log(`Has StackOverflow password? ${hasPassword}`)
 
 if (hasApiKey && hasDomain) {
   mailgun = new Mailgun({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN,
   })
+  if (mailgun) {
+    console.log('Mailgun available.')
+  }
 }
 
 nightmare
