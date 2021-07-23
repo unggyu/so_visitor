@@ -5,7 +5,7 @@ name: execute at scheduled time
 # Controls when the workflow will run
 on:
   push:
-    branches: [master]
+    branches: [master, develop]
   pull_request:
     branches: [master]
   # Triggers the workflow on push or pull request events but only for the master branch
@@ -34,7 +34,7 @@ jobs:
       - name: Install packages
         run: yarn install
       - name: Visit Stack Overflow with headless mode
-        uses: actions/xvfb-action
+        uses: GabrielBB/xvfb-action@v1
         with:
           run: yarn start
           env:
