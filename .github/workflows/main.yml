@@ -33,7 +33,7 @@ jobs:
       - name: Install packages
         run: npm install
       - name: Update ubuntu packages
-        run: apt-get update
+        run: sudo apt-get update
       - name: Visit Stack Overflow with headless mode
         uses: GabrielBB/xvfb-action@v1
         with:
