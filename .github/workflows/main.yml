@@ -29,14 +29,15 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
-          cache: 'yarn'
+          node-version: '12'
       - name: Install packages
-        run: yarn install
+        run: npm install
+      - name: Update ubuntu packages
+        run: apt-get update
       - name: Visit Stack Overflow with headless mode
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: yarn start
+          run: node index.js
         env:
           SO_EMAIL: ${{ secrets.SO_EMAIL }}
           SO_PASSWORD: ${{ secrets.SO_PASSWORD }}

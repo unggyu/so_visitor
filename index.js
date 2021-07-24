@@ -4,7 +4,6 @@ const nightmare = Nightmare({
   waitTimeout: 60000, // 1m
 })
 const Mailgun = require('mailgun-js')
-require('dotenv').config()
 
 let mailgun
 const LOGIN_PAGE = 'https://stackoverflow.com/users/login'
@@ -25,6 +24,10 @@ if (hasApiKey && hasDomain) {
   if (mailgun) {
     console.log('Mailgun available.')
   }
+}
+
+if (nightmare) {
+  console.log('Nightmare available.')
 }
 
 nightmare
