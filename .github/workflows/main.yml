@@ -26,20 +26,25 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v2
+      - run: sudo rm /etc/apt/sources.list.d/sbt.list
+      - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6DB5542C356545CF
+      - run: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+      - run: sudo apt-get update && sudo apt-get install -y x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic x11-apps clang libdbus-1-dev libgtk2.0-dev libnotify-dev libgconf2-dev libasound2-dev libcap-dev libcups2-dev libxtst-dev libxss1 libnss3-dev gcc-multilib g++-multilib
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '12'
+          node-version: '14'
+          # cache: 'yarn'
       - name: Install packages
-        run: npm install
-      - name: Update ubuntu packages
-        run: sudo apt-get update
+        run: sudo yarn install
+      # - name: Update ubuntu packages
+      #   run: sudo apt-get update
       - name: Visit Stack Overflow with headless mode
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: node index.js
+        # uses: GabrielBB/xvfb-action@v1
+        run: sudo -E bash -c 'xvfb-run node index.js'
         env:
           SO_EMAIL: ${{ secrets.SO_EMAIL }}
           SO_PASSWORD: ${{ secrets.SO_PASSWORD }}
           MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
           MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
+          DEBUG: nightmare:*,electron:*

@@ -7,16 +7,12 @@ const Mailgun = require('mailgun-js')
 
 let mailgun
 const LOGIN_PAGE = 'https://stackoverflow.com/users/login'
-const hasApiKey = !isEmpty(process.env.MAILGUN_API_KEY)
-const hasDomain = !isEmpty(process.env.MAILGUN_DOMAIN)
-const hasEmail = !isEmpty(process.env.SO_EMAIL)
-const hasPassword = !isEmpty(process.env.SO_PASSWORD)
-console.log(`Has mailgun api key? ${hasApiKey}`)
-console.log(`Has mailgun domain? ${hasDomain}`)
-console.log(`Has StackOverflow emai? ${hasEmail}`)
-console.log(`Has StackOverflow password? ${hasPassword}`)
+console.log(`Has mailgun api key? ${!!process.env.MAILGUN_API_KEY}`)
+console.log(`Has mailgun domain? ${!!process.env.MAILGUN_DOMAIN}`)
+console.log(`Has StackOverflow emai? ${!!process.env.SO_EMAIL}`)
+console.log(`Has StackOverflow password? ${!!process.env.SO_PASSWORD}`)
 
-if (hasApiKey && hasDomain) {
+if (process.env.MAILGUN_API_KEY && !!process.env.MAILGUN_DOMAIN) {
   mailgun = new Mailgun({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN,
@@ -48,15 +44,6 @@ nightmare
   .end()
   .then(processResult)
   .catch(processError)
-
-function isEmpty(value) {
-  return (
-    value == '' ||
-    value == null ||
-    value == undefined ||
-    (value != null && typeof value == 'object' && !Object.keys(value).length)
-  )
-}
 
 function processResult(text) {
   console.log(`Visit success. (${text})`)
