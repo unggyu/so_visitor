@@ -1,7 +1,7 @@
 const Nightmare = require('nightmare')
 const nightmare = Nightmare({
   show: false, // trun off the electron window
-  waitTimeout: 60000, // 1m
+  waitTimeout: 180000, // 3m
 })
 const Mailgun = require('mailgun-js')
 

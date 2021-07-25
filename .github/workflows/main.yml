@@ -37,8 +37,6 @@ jobs:
           # cache: 'yarn'
       - name: Install packages
         run: sudo yarn install
-      # - name: Update ubuntu packages
-      #   run: sudo apt-get update
       - name: Visit Stack Overflow with headless mode
         # uses: GabrielBB/xvfb-action@v1
         run: sudo -E bash -c 'xvfb-run node index.js'
