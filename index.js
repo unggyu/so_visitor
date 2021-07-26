@@ -5,14 +5,34 @@ const nightmare = Nightmare({
 })
 const Mailgun = require('mailgun-js')
 
+let hasApiKey
+let hasDomain
+let hasEmail
+let hasPass
+
+function checkEnv() {
+  hasApiKey = !!process.env.MAILGUN_API_KEY
+  hasDomain = !!process.env.MAILGUN_DOMAIN
+  hasEmail = !!process.env.SO_EMAIL
+  hasPass = !!process.env.SO_PASSWORD
+}
+
+checkEnv()
+
+if (!(hasApiKey && hasDomain && hasEmail && hasPass)) {
+  require('dotenv').config({ path: './.secrets' })
+  checkEnv()
+}
+
+console.log(`Has mailgun api key? ${hasApiKey}`)
+console.log(`Has mailgun domain? ${hasDomain}`)
+console.log(`Has StackOverflow emai? ${hasEmail}`)
+console.log(`Has StackOverflow password? ${hasPass}`)
+
 let mailgun
 const LOGIN_PAGE = 'https://stackoverflow.com/users/login'
-console.log(`Has mailgun api key? ${!!process.env.MAILGUN_API_KEY}`)
-console.log(`Has mailgun domain? ${!!process.env.MAILGUN_DOMAIN}`)
-console.log(`Has StackOverflow emai? ${!!process.env.SO_EMAIL}`)
-console.log(`Has StackOverflow password? ${!!process.env.SO_PASSWORD}`)
 
-if (process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN) {
+if (hasApiKey && hasDomain) {
   mailgun = new Mailgun({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN,
