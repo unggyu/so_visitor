@@ -99,6 +99,9 @@ function processError(errText) {
       },
       (error, body) => {
         if (error) {
+          if (typeof error === 'object') {
+            error = JSON.stringify(error)
+          }
           console.error(`An error occurred while sending mail. ${error}`)
           throw error
         } else {
