@@ -87,23 +87,26 @@ function processResult(text) {
   }
 }
 
-function processError(errText) {
-  console.error(`Visit failure. error: ${errText}`)
+function processError(error) {
+  let errorText
+  if (typeof error === 'object') {
+    errorText = JSON.stringify(error)
+  } else {
+    errorText = error
+  }
+  console.error(`Visit failure. error: ${errorText}`)
   if (mailgun) {
     mailgun.messages().send(
       {
         from: 'SO Visitor <no-reply@mailgun.org>',
         to: process.env.SO_EMAIL,
         subject: `Stackoverflow visiting report (Error)`,
-        text: `Something went wrong: ${errText}`,
+        text: `Something went wrong: ${errorText}`,
       },
-      (error, body) => {
-        if (error) {
-          if (typeof error === 'object') {
-            error = JSON.stringify(error)
-          }
-          console.error(`An error occurred while sending mail. ${error}`)
-          throw error
+      (err, body) => {
+        if (err) {
+          console.error(`An error occurred while sending mail. ${err}`)
+          throw err
         } else {
           console.log('Mail has been sent.')
         }

@@ -307,10 +307,10 @@ electron-download@^3.0.1:
     semver "^5.3.0"
     sumchecker "^1.2.0"
 
-electron@^1.4.4:
-  version "1.8.8"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-1.8.8.tgz#a90cddb075291f49576993e6f5c8bb4439301cae"
-  integrity sha512-1f9zJehcTTGjrkb06o6ds+gsRq6SYhZJyxOk6zIWjRH8hVy03y/RzUDELzNas71f5vcvXmfGVvyjeEsadDI8tg==
+electron@^2.0.18:
+  version "2.0.18"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-2.0.18.tgz#52f1b248c3cc013b5a870094de3b6ba5de313a0f"
+  integrity sha512-PQRHtFvLxHdJzMMIwTddUtkS+Te/fZIs+PHO+zPmTUTBE76V3Od3WRGzMQwiJHxN679licmCKhJpMyxZfDEVWQ==
   dependencies:
     "@types/node" "^8.0.24"
     electron-download "^3.0.1"
@@ -881,25 +881,33 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
+multiline@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/multiline/-/multiline-1.0.2.tgz#69b1f25ff074d2828904f244ddd06b7d96ef6c93"
+  integrity sha1-abHyX/B00oKJBPJE3dBrfZbvbJM=
+  dependencies:
+    strip-indent "^1.0.0"
+
 netmask@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
   integrity sha1-ICl+idhvb2QA8lDZ9Pa0wZRfzTU=
 
-nightmare@^2.8.0:
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/nightmare/-/nightmare-2.10.0.tgz#e9c5d590bb296f59685fd48218c2fbac44767b21"
-  integrity sha1-6cXVkLspb1loX9SCGML7rER2eyE=
+nightmare@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/nightmare/-/nightmare-3.0.2.tgz#fb4613259e7b9c05303ae9469e77b1b901351259"
+  integrity sha512-z6Sr7k71pFcNHFH0orejum9xMzrsdU1lcxlbvNGRsKgDltmu4r52sK5opDnoqfyWS+w9SNthj/4Bbt5zNofzhw==
   dependencies:
     debug "^2.2.0"
     deep-defaults "^1.0.3"
     defaults "^1.0.2"
-    electron "^1.4.4"
+    electron "^2.0.18"
     enqueue "^1.0.2"
     function-source "^0.1.0"
     jsesc "^0.5.0"
     minstache "^1.2.0"
     mkdirp "^0.5.1"
+    multiline "^1.0.2"
     once "^1.3.3"
     rimraf "^2.4.3"
     sliced "1.0.1"
@@ -1408,7 +1416,7 @@ strip-bom@^2.0.0:
   dependencies:
     is-utf8 "^0.2.0"
 
-strip-indent@^1.0.1:
+strip-indent@^1.0.0, strip-indent@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/strip-indent/-/strip-indent-1.0.1.tgz#0c7962a6adefa7bbd4ac366460a638552ae1a0a2"
   integrity sha1-DHlipq3vp7vUrDZkYKY4VSrhoKI=
