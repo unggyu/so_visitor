@@ -12,7 +12,7 @@ console.log(`Has mailgun domain? ${!!process.env.MAILGUN_DOMAIN}`)
 console.log(`Has StackOverflow emai? ${!!process.env.SO_EMAIL}`)
 console.log(`Has StackOverflow password? ${!!process.env.SO_PASSWORD}`)
 
-if (process.env.MAILGUN_API_KEY && !!process.env.MAILGUN_DOMAIN) {
+if (process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN) {
   mailgun = new Mailgun({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN,
